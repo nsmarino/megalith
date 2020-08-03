@@ -5,6 +5,9 @@ html {
 }
 body {
   margin: 0;
+  display: flex;
+  background-image: url('../images/watercolor1.jpg');
+  justify-content: center;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

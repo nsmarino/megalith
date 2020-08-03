@@ -1,8 +1,12 @@
+// require('dotenv').config({
+//   path: `.env.${process.env.NODE_ENV}`,
+// })
+
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Default Starter`,
-    description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
-    author: `@gatsbyjs`,
+    title: `MEGALITH`,
+    description: `Megalith Supply`,
+    author: `nicholas marino`,
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
@@ -11,6 +15,14 @@ module.exports = {
       options: {
         name: `images`,
         path: `${__dirname}/src/images`,
+      },
+    },
+    {
+      resolve: `gatsby-source-graphql`, // this is the syntax for a custom graphql endpoint datasource!
+      options: {
+        typeName: `customServer`,
+        fieldName: `customServer`,
+        url: 'http://localhost:4000/graphql',
       },
     },
     `gatsby-transformer-sharp`,
