@@ -1,26 +1,35 @@
-import { Link } from "gatsby"
+import { Link, graphql, useStaticQuery } from "gatsby"
 import PropTypes from "prop-types"
 import React from "react"
+import Img from "gatsby-image"
 
-const Header = ({ siteTitle }) => (
+const Header = () => {
+
+  const data = useStaticQuery(graphql`
+    query {
+      placeholderImage: file(relativePath: { eq: "Mega_Text.png" }) {
+        childImageSharp {
+          fluid(maxWidth: 800, quality: 100) {
+            ...GatsbyImageSharpFluid
+          }
+        }
+      }
+    }
+  `)
+  
+  return (
   <header>
       <h1>
         <Link
           to="/"
         >
-          {siteTitle}
-        </Link>
+        <Img fluid={data.placeholderImage.childImageSharp.fluid} />
+      </Link>
       </h1>
-      <nav>
-        <ul>
-          <li>about</li>
-          <li>erosion</li>
-          <li>cart</li>
-        </ul>
-      </nav>
+      <p>Cart</p>
   </header>
 )
-
+}
 Header.propTypes = {
   siteTitle: PropTypes.string,
 }
