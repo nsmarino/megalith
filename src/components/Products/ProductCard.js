@@ -32,6 +32,7 @@ const ProductCard = ({ product }) => {
     const item = { ...matchingVariant, price: matchingVariant.retail_price*100}
     addItem(item, quantity)
   }
+  
   return (
       <div style={{display: 'flex'}}>
         <img src={product.thumbnail_url} alt="random" style={{width: '250px'}}/>
@@ -42,7 +43,7 @@ const ProductCard = ({ product }) => {
           <VariantSelect selection={variant} variants={product.variants} productName={product.name} handleChange={selectVariant} />
 
           <input type="number" id="quantity" name="quantity"
-      min="1" max="10" value={quantity} onChange={(e) => setQuantity(e.target.value)} />
+      min="1" max="10" value={quantity} onChange={(e) => setQuantity(parseInt(e.target.value,10))} />
           <button type="submit">add to cart</button>
           </form>
         </div>

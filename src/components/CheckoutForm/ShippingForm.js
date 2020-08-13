@@ -7,7 +7,7 @@ const ShippingForm = ({ separateBilling, handleChange }) => {
 
   return (
     <div>
-      <h3>Shipping</h3>
+      <h3>Shipping Address</h3>
 
       <Input 
         name="shipping.name" 

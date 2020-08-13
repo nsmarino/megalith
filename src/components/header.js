@@ -5,8 +5,7 @@ import Img from "gatsby-image"
 import { useCart } from 'react-use-cart'
 
 const Header = () => {
-  const { totalUniqueItems, items } = useCart()
-  console.log(items)
+  const { totalItems } = useCart()
 
   const data = useStaticQuery(graphql`
     query {
@@ -29,7 +28,7 @@ const Header = () => {
         <Img fluid={data.placeholderImage.childImageSharp.fluid} />
       </Link>
       </h1>
-      <p><Link to="/cart">Cart [{totalUniqueItems}]</Link></p>
+      <p><Link to="/cart">Cart [{totalItems}]</Link></p>
   </header>
 )
 }
