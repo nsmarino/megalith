@@ -28,14 +28,14 @@ const PaymentForm = ({ checkoutProcessing, allowPayment }) => {
         onChange={handleStripeChange}
       />
 
-        {/* {errors.stripe && 
+        {errors.stripe && 
           <ErrorMessage
                   as={<p />}
                   name="stripe"
                   errors={errors}
                 />
         }  
- */}
+
       <button 
         type="submit"
         disabled={checkoutProcessing}

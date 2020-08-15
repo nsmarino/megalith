@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { navigate } from 'gatsby';
+
 import { useMutation } from 'graphql-hooks';
 
 import { useStripe, useElements } from '@stripe/react-stripe-js';
@@ -8,18 +10,9 @@ import { useForm, FormProvider } from 'react-hook-form'
 import BillingForm from './BillingForm';
 import PaymentForm from './PaymentForm';
 import ShippingForm from './ShippingForm';
+import TotalInfo from './TotalInfo';
 
-const TotalInfo = ({ subtotal, tax, shipping }) => {
-  return (
-    <div>
-      <p>Sub total: ${ (subtotal / 100).toFixed(2) }</p>
-      <p>Tax: ${tax}</p>
-      <p>Shipping: ${shipping}</p>
-      <p>Total: ${((subtotal/100) + tax + shipping).toFixed(2)}</p>
-    </div>
-  )
-}
-
+// Mutations:
 const CALCULATE_MUTATION = `mutation estimateOrderCosts($input: EstimateOrderCostsInput!) {
   estimateOrderCosts(
     input: $input
@@ -30,8 +23,6 @@ const CALCULATE_MUTATION = `mutation estimateOrderCosts($input: EstimateOrderCos
     vatRate
   }
 }`
-
-// IMPORTANT: DRAFT MUTATION, NOT FINALIZED ON BACKEND /////////////////////
 const CHECKOUT_MUTATION = `mutation checkout($input: CheckoutInput!) {
   checkout(
     input: $input
@@ -40,11 +31,18 @@ const CHECKOUT_MUTATION = `mutation checkout($input: CheckoutInput!) {
     orderTotal
   }
 }`
-///////////////////////////////////////////////////////////////////////////
-
-// const PAYMENT_INTENT_MUTATION = ''
+const PAYMENT_INTENT_MUTATION = `mutation createPaymentIntent($input: PaymentIntentInput!) {
+  createPaymentIntent(
+    input: $input
+  ) {
+    id
+    clientSecret
+    status
+  }
+}`
 
 const CheckoutForm = () => {
+ 
 // Checkout state:
     const [checkoutProcessing, setCheckoutProcessing] = useState(false)
     const [separateBilling, setSeparateBilling] = useState(false)
@@ -53,11 +51,10 @@ const CheckoutForm = () => {
     const [paymentVis, setPaymentVis] = useState(false)
     const [tax, setTax] = useState(0)
 
-
 // Mutation hooks:
     const [estimateOrderCosts] = useMutation(CALCULATE_MUTATION);
     const [checkout] = useMutation(CHECKOUT_MUTATION);
-    // const [createPaymentIntent] = useMutation(PAYMENT_INTENT_MUTATION);
+    const [createPaymentIntent] = useMutation(PAYMENT_INTENT_MUTATION);
 
 // Stripe:
     const stripe = useStripe();
@@ -69,28 +66,61 @@ const CheckoutForm = () => {
 // React-hook-form:
     const methods = useForm();
 
+// Functions:
+    const handleCheckoutSuccess = (orderId) => {
+      emptyCart();
 
-// FUNCTION JUNCTION:
-    const submitOrder = async (data) => {
+      navigate('./success', { state: { orderId } });
+    }
+    const handleCheckoutError = (err) => {
+      console.log('checkout failure', err)
+    }
+    const submitOrder = async ({ shipping }) => {
+      setCheckoutProcessing(true)
+
       try {
-// 1 Create input for CHECKOUT_MUTATION: name, email, phone, total, shippingAddress, billingAddress, items.
-        const input = {}
-// 2 Fire CHECKOUT_MUTATION, which will return Printful Order Id. On printful side, order will now be at draft stage.
+        // Checkout mutation:
+        const printfulSyncVariants = items.map(item => {return { sync_variant_id: item.id, quantity: item.quantity}})
+ 
+        const input = {
+          recipient: shipping,
+          items: printfulSyncVariants,
+        }
         const { data } = await checkout({ variables: { input }})
-// 3 Create input for PAYMENT_INTENT_MUTATION: description (printful order id), email, metadata (printful order id), total
+        
+        const total = parseInt(cartTotal,10) + (parseInt(shippingRate,10)*100) + (parseInt(tax,10)*100)
+        
+        // PaymentIntent mutation:
+        const paymentIntentInput = {
+          description: 'megalith.supply payment',
+          email: shipping.email,          
+          metadata: { printfulOrderId: data.checkout.printfulOrderId, },
+          total,
+        }
 
-// 4 Fire PAYMENT_INTENT_MUTATION which will return clientSecret.
+        const { data : { 
+          createPaymentIntent: {
+            id,
+            clientSecret,
+            }
+          } 
+        } = await createPaymentIntent({ variables: { input: paymentIntentInput }})
 
-// 5 fire stripe.confirmCardPayment, using clientSecret
+        // Confirm Stripe payment:
+        const stripeConfirmation = await stripe.confirmCardPayment(clientSecret, {
+          payment_method: {
+            card: elements.getElement('card'),
+          },
+        });
+        console.log(stripeConfirmation)
+        if (stripeConfirmation.error) throw new Error(stripeConfirmation.error.message);
+        
+        handleCheckoutSuccess(id)
 
-// 6 call successHandler
-
-// (Next: write express webhook that confirms printful order once stripe payment is successfully processed)
       } catch (err) {
-        console.log(err)
+        handleCheckoutError(err)
       }
     }
-
     const calculateOrderCosts = async ({ shipping }) => {
       const printfulSyncVariants = items.map(item => {return { sync_variant_id: item.id, quantity: item.quantity}})
       const input = {
@@ -113,44 +143,44 @@ const CheckoutForm = () => {
         }
     }
 
-
-
-    return (
+  return (
     <>
-      <TotalInfo subtotal={cartTotal} shipping={shippingRate} tax={tax} />
+    <TotalInfo subtotal={cartTotal} shipping={shippingRate} tax={tax} />
 
-  <FormProvider {...methods}>
+    <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(
           allowPayment ? submitOrder : calculateOrderCosts
         )}>
         <ShippingForm separateBilling={separateBilling} handleChange={() => setSeparateBilling(!separateBilling)} />
-        {separateBilling && <BillingForm />}
-        {/* {paymentVis && <PaymentForm />} */}
-        <PaymentForm checkoutProcessing={checkoutProcessing} allowPayment={allowPayment} />
+        { separateBilling && <BillingForm /> }
+        { paymentVis && <PaymentForm checkoutProcessing={checkoutProcessing} allowPayment={allowPayment} /> }
       </form> 
-  </FormProvider> 
+    </FormProvider> 
 
-      </>  
-    )
+    </>  
+  )
 }
 
 export default CheckoutForm
 
-// tasks for 8/12:
-// 1. install react-hook-form and set up
-// 2. focus only on ShippingForm component refer to UI of sample site while creating parts of form using react-hook-form
-//   -- consider making Input and Select react components. Gatsby is just a way to write React. Think in components!
-// 3. Once satisfied with logged submissions from handleSubmit of just the ShippingForm, do the same for BillingForm.
-// 4. Complete PaymentForm using react-hook-form and Stripe.
-// 5. Once the forms are complete and submission logs the person's info and the cart info, determine exact format for backend.
-// 6. First ShippingForm will be submitted, which will use EstimateCosts API from Printful.
-// 7. Find out what Printful API needs, then read up on how to handle a mutation on backend. Use dummy data to test the call to the Printful API.
-// 8. Write a mutation in the frontend that matches the mutation in the backend.
-// 9. Once the estimate cost mutation hook has been completed, it will be easier to understand how to do the other ones.
-// 10. Use Stripe and Printful API to complete order:
-  // a. Draft order
-  // b. Estimate order costs
-  // c. Use total to create payment intent on server -- or should paymentIntent be drawn directly from Printful API?
-  // d. Send client_secret from payment intent to client so payment can be made to Stripe
-  // e. Confirm order via webhook once charge is successful (not a mutation -- POST to express endpoint)
-// 11. Create handlers for success and failure. Think about implementing a checkout context to manage state more easily.
+
+// 8/14:
+// Integrate checkout mutation. ✓
+// Integrate payment_intent mutation. ✓
+// Send client secret to stripe to complete payment. ✓
+// Webhook will confirm Printful order. However, how to test? 
+// Navigate to success or failure page. ✓
+
+// 8/15:
+// Simple css to make site presentable.
+
+// 8/16:
+// Error handling
+// Test suites
+
+// Aug 17-31:
+// Deploy simple static portfolio site, create PDF resume, polish 3 projects for job applications starting September 1.
+
+// September:
+// Apply to 3 jobs per day while working on sketchbook, working on design of personal site, improving 3 full-stack projects, and maybe doing leetcode problems?
+// GOAL: get a job interview by end of september.
