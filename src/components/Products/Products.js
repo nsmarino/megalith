@@ -7,23 +7,52 @@ export default () => (
     <StaticQuery 
     query={graphql`
       query ProductQuery {
-          products: customServer {
-              allProducts {
-                  name
-                  id
-                  thumbnail_url
-                  variants {
-                      name
-                      id
-                      retail_price
-                      sku
-                  }
-              }
+        products: customServer {
+          allProducts {
+            name
+            id
+            thumbnail_url
+            variants {
+              name
+                id
+                retail_price
+                sku
+            }
           }
+        }
+        images:
+          allFile(filter: {extension: {regex: "/(png)/"}, relativeDirectory: {eq: "productImages"}}) {
+            edges {
+              node {
+                base
+                childImageSharp {
+                  fluid(maxWidth: 800, quality: 100) {
+                    ...GatsbyImageSharpFluid
+                  }
+                }
+            }
+          }
+        }
       }
     `}
-    render={({ products }) => (
+    render={({ products, images }) => {
+      const productsWithImages = products.allProducts.map(
+        product => (
+          {
+            ...product, 
+            gatsbyImage: images.edges.find(edge => edge.node.base.split('.')[0] === product.id)
+          }
+        )
+      )
+      
+      console.log(productsWithImages)
+
+      return (
+        productsWithImages.map(product => <ProductCard product={product} key={product.id} />)
+      )
+      /* return (
         products.allProducts.map(product => <ProductCard product={product} key={product.id} />)
-    )}
+      ) */
+    }}
     />
 )

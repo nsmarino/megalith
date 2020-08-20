@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { navigate } from 'gatsby';
 
 import { useMutation } from 'graphql-hooks';
-
 import { useStripe, useElements } from '@stripe/react-stripe-js';
 import { useCart } from 'react-use-cart';
 import { useForm, FormProvider } from 'react-hook-form'
@@ -11,6 +10,8 @@ import BillingForm from './BillingForm';
 import PaymentForm from './PaymentForm';
 import ShippingForm from './ShippingForm';
 import TotalInfo from './TotalInfo';
+import CheckoutContext from '../../context/Checkout';
+
 
 // Mutations:
 const CALCULATE_MUTATION = `mutation estimateOrderCosts($input: EstimateOrderCostsInput!) {
@@ -50,6 +51,11 @@ const CheckoutForm = () => {
     const [shippingRate, setShippingRate] = useState(0)
     const [paymentVis, setPaymentVis] = useState(false)
     const [tax, setTax] = useState(0)
+
+// Refactory: Checkout context
+  const checkoutContext = useContext(CheckoutContext)
+  console.log(checkoutContext)
+
 
 // Mutation hooks:
     const [estimateOrderCosts] = useMutation(CALCULATE_MUTATION);
@@ -92,9 +98,8 @@ const CheckoutForm = () => {
         
         // PaymentIntent mutation:
         const paymentIntentInput = {
-          description: 'megalith.supply payment',
           email: shipping.email,          
-          metadata: { printfulOrderId: data.checkout.printfulOrderId, },
+          orderId: data.checkout.printfulOrderId,
           total,
         }
 
@@ -168,7 +173,7 @@ export default CheckoutForm
 // Integrate checkout mutation. ✓
 // Integrate payment_intent mutation. ✓
 // Send client secret to stripe to complete payment. ✓
-// Webhook will confirm Printful order. However, how to test? 
+// Webhook will confirm Printful order. ✓
 // Navigate to success or failure page. ✓
 
 // 8/15:

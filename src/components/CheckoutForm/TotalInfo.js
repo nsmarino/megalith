@@ -1,7 +1,6 @@
 import React from 'react'
 
 const TotalInfo = ({ subtotal, tax, shipping }) => {
-    console.log(subtotal, tax, shipping)
     return (
       <div>
         <p>Sub total: ${ (subtotal / 100).toFixed(2) }</p>

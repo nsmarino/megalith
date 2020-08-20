@@ -1,0 +1,47 @@
+@font-face {
+    font-family: Computer Modern;
+    font-weight: 400;
+    font-style: normal;
+    src: url("../../static/fonts/cmunrm.ttf") format("truetype");
+  }
+  
+  @font-face {
+    font-family: Megalith-Regular;
+    font-weight: 400;
+    font-style: normal;
+    src: url("../../static/fonts/Megalith-Regular.ttf") format("truetype");
+  }
+  
+  html {
+    font-family: Computer Modern, sans-serif;
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+    box-sizing: border-box;
+    overflow-y: scroll;
+    font-size: 100%;
+  }
+  body {
+    margin: 0;
+    display: flex;
+    background: #dbc7cb;
+    justify-content: center;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+* {
+    box-sizing: inherit;
+  }
+  *:before {
+    box-sizing: inherit;
+  }
+  *:after {
+    box-sizing: inherit;
+  }
+  
+  /* @media only screen and (max-width: 480px) {
+    html {
+      font-size: 100%;
+    }
+  } */
+  
