@@ -1,6 +1,11 @@
 import React from 'react'
 import { useFormContext } from 'react-hook-form'
+
 import Input from '../Input'
+import StyledButton from '../StyledButton'
+
+import { StyledSelectContainer, StyledCheckboxContainer } from './styles'
+
 
 const ShippingForm = ({ separateBilling, handleChange }) => {
   const { register, errors } = useFormContext(); // retrieve all hook methods
@@ -52,6 +57,7 @@ const ShippingForm = ({ separateBilling, handleChange }) => {
         register={register({ required: 'City is required' })}
         errors={errors} 
       />
+      <StyledSelectContainer>
       
       <select name="shipping.state_code" ref={register}>
         <option value="AL">Alabama</option>
@@ -106,10 +112,12 @@ const ShippingForm = ({ separateBilling, handleChange }) => {
         <option value="WI">Wisconsin</option>
         <option value="WY">Wyoming</option>
       </select>	
-
+      
       <select name="shipping.country_code" defaultValue="US" ref={register}>
         <option>US</option>
       </select>
+ 
+      </StyledSelectContainer>
 
       <Input 
         name="shipping.zip" 
@@ -118,12 +126,16 @@ const ShippingForm = ({ separateBilling, handleChange }) => {
         errors={errors} 
       />
       
-      <label htmlFor="separateBilling">
-      <input type="checkbox" id="separateBilling" name="separateBilling" value={separateBilling} onChange={handleChange} />
-      <span> Shipping address is different from billing address</span>
-      </label>
+      <StyledCheckboxContainer>
+        <label htmlFor="separateBilling">
+          <p> 
+            <input type="checkbox" id="separateBilling" name="separateBilling" value={separateBilling} onChange={handleChange} />
+            Shipping address is different from billing address
+          </p>
+        </label>
+      </StyledCheckboxContainer>
 
-      <button type="submit">Calculate shipping</button>
+      <StyledButton type="submit">Calculate shipping</StyledButton>
     </div>
   )
 }

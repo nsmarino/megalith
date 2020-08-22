@@ -1,30 +1,22 @@
 import React from 'react'
 import { Link } from "gatsby"
-
 import { useCart } from 'react-use-cart'
 
+
 import Layout from '../components/layout'
+import CartView from '../components/CartView'
+import StyledButton from '../components/StyledButton'
 
-const CartView = () => {
-    const { items, cartTotal } = useCart()
-    return (<div>
-        {items.map(item => (
-            <div key={item.id} style={{display: 'flex'}}>
-                <h2>{item.name}</h2>
-                <p>quantity: {item.quantity}</p>
-                <p>${item.itemTotal / 100}</p>
-            </div>
-        )
-        )}
-        <h3>Total: ${cartTotal / 100}</h3>
-    </div>)
-}
-
-const CartPage = () => (
+const CartPage = () => {
+    const { cartTotal } = useCart()
+    return (
     <Layout>
         <CartView />
-        <button><Link to='/checkout'>checkout</Link></button>
+        <div style={{display: 'flex', justifyContent: 'space-between'}}>
+          <div style={{fontSize: '1.25rem'}}>Subtotal: ${cartTotal ? cartTotal / 100 : '0'}</div>  
+          <StyledButton><Link to='/checkout'>Go to Checkout</Link></StyledButton>
+        </div>
     </Layout>
-)
+)}
 
 export default CartPage

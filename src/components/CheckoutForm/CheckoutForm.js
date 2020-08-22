@@ -1,5 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { navigate } from 'gatsby';
+import styled from '@emotion/styled'
 
 import { useMutation } from 'graphql-hooks';
 import { useStripe, useElements } from '@stripe/react-stripe-js';
@@ -12,6 +13,37 @@ import ShippingForm from './ShippingForm';
 import TotalInfo from './TotalInfo';
 import CheckoutContext from '../../context/Checkout';
 
+const StyledForm = styled.form`
+  h3 {
+    font-weight: 400;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+  }
+
+  input {
+
+    border: 1px solid black;
+    margin-bottom: 0.25rem;
+    margin-top: 0.25rem;
+    display: block;
+    height: 2rem;
+    width: 20rem;
+  }
+
+  input::-webkit-input-placeholder { 
+    font-style: italic;
+  }
+  input::-moz-placeholder { 
+    font-style: italic;
+  }
+  input:-ms-input-placeholder { 
+    font-style: italic;
+  }
+  input:-moz-placeholder { 
+    font-style: italic;
+  }
+`
 
 // Mutations:
 const CALCULATE_MUTATION = `mutation estimateOrderCosts($input: EstimateOrderCostsInput!) {
@@ -54,8 +86,6 @@ const CheckoutForm = () => {
 
 // Refactory: Checkout context
   const checkoutContext = useContext(CheckoutContext)
-  console.log(checkoutContext)
-
 
 // Mutation hooks:
     const [estimateOrderCosts] = useMutation(CALCULATE_MUTATION);
@@ -76,7 +106,7 @@ const CheckoutForm = () => {
     const handleCheckoutSuccess = (orderId) => {
       emptyCart();
 
-      navigate('./success', { state: { orderId } });
+      navigate('../success', { state: { orderId } });
     }
     const handleCheckoutError = (err) => {
       console.log('checkout failure', err)
@@ -149,20 +179,21 @@ const CheckoutForm = () => {
     }
 
   return (
-    <>
-    <TotalInfo subtotal={cartTotal} shipping={shippingRate} tax={tax} />
+    <div style={{display: 'flex', justifyContent: 'space-between'}}>
 
     <FormProvider {...methods}>
-      <form onSubmit={methods.handleSubmit(
+      <StyledForm onSubmit={methods.handleSubmit(
           allowPayment ? submitOrder : calculateOrderCosts
         )}>
         <ShippingForm separateBilling={separateBilling} handleChange={() => setSeparateBilling(!separateBilling)} />
         { separateBilling && <BillingForm /> }
         { paymentVis && <PaymentForm checkoutProcessing={checkoutProcessing} allowPayment={allowPayment} /> }
-      </form> 
+      </StyledForm> 
     </FormProvider> 
 
-    </>  
+    <TotalInfo subtotal={cartTotal} shipping={shippingRate} tax={tax} />
+
+    </div>  
   )
 }
 

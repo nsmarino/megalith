@@ -2,11 +2,12 @@ import React from 'react'
 import styled from "@emotion/styled"
 
 const StyledSelect = styled.select`
+  font-family: Computer Modern;
+  font-size: 1.25rem;
   background: #dbc7cb;
   border: 1px solid black;
-  border-radius: 5px;
-  padding: 0.25rem 2rem 0.25rem 2rem;
 `
+
 const VariantSelect = ({ selection, variants, productName, handleChange }) => {
     const displayVariants = () => {
       return variants.map(variant => (

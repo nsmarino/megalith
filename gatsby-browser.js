@@ -3,6 +3,7 @@ import StripeProvider from './src/components/StripeProvider';
 
 import { CartProvider } from 'react-use-cart'; // for shopping cart
 import { GraphQLClient, ClientContext } from 'graphql-hooks';
+import { ToastContainer } from 'react-toastify'; // add-on for client notifications
 
 import GlobalStyles from './src/components/globalstyles'
 
@@ -22,7 +23,21 @@ export const wrapRootElement = ({ element }) => {
         <CartProvider>
         {element}
         </CartProvider>
-      </ClientContext.Provider>
+
+        <ToastContainer
+          position="top-center"
+          autoClose={2000}
+          hideProgressBar={true}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          closeButton={false}
+        />
+
+        </ClientContext.Provider>
     </StripeProvider>
     )
 }

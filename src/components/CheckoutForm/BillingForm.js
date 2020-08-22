@@ -2,6 +2,9 @@ import React from 'react'
 import { useFormContext } from 'react-hook-form'
 import Input from '../Input'
 
+import { StyledSelectContainer } from './styles'
+
+
 const BillingForm = (props) => {
   const { register, errors } = useFormContext(); // retrieve all hook methods
 
@@ -52,7 +55,7 @@ const BillingForm = (props) => {
         register={register({ required: 'City is required' })}
         errors={errors} 
       />
-      
+      <StyledSelectContainer>
       <select name="billing.state_code" ref={register}>
         <option value="AL">Alabama</option>
         <option value="AK">Alaska</option>
@@ -110,6 +113,7 @@ const BillingForm = (props) => {
       <select name="billing.country_code" defaultValue="US" ref={register}>
         <option>US</option>
       </select>
+      </StyledSelectContainer>
 
       <Input 
         name="billing.zip" 

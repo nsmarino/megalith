@@ -45,14 +45,9 @@ export default () => (
         )
       )
       
-      console.log(productsWithImages)
-
       return (
         productsWithImages.map(product => <ProductCard product={product} key={product.id} />)
       )
-      /* return (
-        products.allProducts.map(product => <ProductCard product={product} key={product.id} />)
-      ) */
     }}
     />
 )

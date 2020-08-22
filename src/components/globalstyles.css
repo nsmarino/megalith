@@ -22,11 +22,20 @@
   }
   body {
     margin: 0;
+    margin-top: 1rem;
     display: flex;
     background: #dbc7cb;
     justify-content: center;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+
+    --striped-hover: repeating-linear-gradient(
+      -45deg,
+      #dbc7cb,
+      #dbc7cb 5px,
+      white 5px,
+      white 6px
+    );
   }
   
 * {
@@ -39,9 +48,34 @@
     box-sizing: inherit;
   }
   
-  /* @media only screen and (max-width: 480px) {
-    html {
-      font-size: 100%;
+  ::selection {
+     background: white; 
+  }
+
+  ::-moz-selection {
+    background: white;
+  }
+
+/*  Toast: */
+
+.Toastify__toast--default {
+}
+
+.Toastify__toast-body {
+  color: black;
+  font-family: Megalith-Regular;
+  font-size: 2rem;
+  text-align: center;
+}
+
+
+
+
+
+  /* @media only screen and (min-width: 400) {
+    main {
+      width: 800px;
+      border: 1px solid blue;
     }
   } */
   

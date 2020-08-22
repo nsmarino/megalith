@@ -3,6 +3,7 @@ import { useFormContext } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
 import { CardElement } from '@stripe/react-stripe-js';
 
+import StyledButton from '../StyledButton'
 
 const PaymentForm = ({ checkoutProcessing, allowPayment }) => {
   const { errors, register, setValue } = useFormContext();
@@ -22,11 +23,13 @@ const PaymentForm = ({ checkoutProcessing, allowPayment }) => {
     <div>
       <h3>Payment</h3>
       <p>Testing: Use card # 4242 4242 4242 4242 with any valid expiry and CVC code.</p>
+      <div id="cardContainer" style={{marginBottom: '1rem'}}>
       <CardElement
         options={{ hidePostalCode: true }}
         disabled={checkoutProcessing}
         onChange={handleStripeChange}
       />
+      </div>
 
         {errors.stripe && 
           <ErrorMessage
@@ -36,12 +39,12 @@ const PaymentForm = ({ checkoutProcessing, allowPayment }) => {
                 />
         }  
 
-      <button 
+      <StyledButton 
         type="submit"
         disabled={checkoutProcessing}
         >
         {checkoutProcessing ? 'Processing...' : 'Pay for order'}
-        </button>
+        </StyledButton>
     </div>
   )
 }

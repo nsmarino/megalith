@@ -1,29 +1,31 @@
 import React, { useState } from 'react'
 import { useCart } from 'react-use-cart'
 import Img from 'gatsby-image'
+import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
+// import 'react-toastify/dist/ReactToastify.minimal.css';
 
 import VariantSelect from './VariantSelect'
+import StyledButton from '../StyledButton'
 
 import styled from "@emotion/styled"
 
 const StyledProductInfoDiv = styled.div`
+  margin: 2rem;
+  display: flex;
+  font-size: 1.25rem;
+  flex-direction: column;
+  align-items: center;
 `
-
 const StyledNumberInput = styled.input`
-  display: block;
+  font-family: Computer Modern;
+  font-size: 1.25rem;
+  width: 2.5rem;
+  height: 1.25rem;
   background: #dbc7cb;
   border: 1px solid black;
-  width: 4rem;
-`
-
-const StyledSubmitButton = styled.button`
-  background: black;
-  border: none;
-  color: #dbc7cb;
-  border-radius: 5px;
 
 `
-
 
 const ProductCard = ({ product }) => {
   const { addItem } = useCart()
@@ -36,25 +38,40 @@ const ProductCard = ({ product }) => {
     setVariant(e.target.value)
   }
   const handleSubmit = (e) => {
-    e.preventDefault()
+    e.preventDefault()  
     const matchingVariant = product.variants.find(item=>item.id === variant)
-    const item = { ...matchingVariant, price: matchingVariant.retail_price*100}
+    const item = { ...matchingVariant, price: matchingVariant.retail_price*100, gatsbyImage: product.gatsbyImage}
     addItem(item, quantity)
-  }
+    toast(`Added ${item.name} to Cart`);  
+    }
 
   return (
-      <div style={{display: 'flex'}}>
+      <div style={{margin: '2rem', display: 'flex', alignItems: 'center'}}>
         <Img fluid={product.gatsbyImage.node.childImageSharp.fluid} alt={product.name} style={{width: '300px',}}/>
 
         <StyledProductInfoDiv>
-          <h2>{product.name}</h2>
-          <p>${product.variants[0].retail_price}</p>
-          <form onSubmit={handleSubmit}>
-          <VariantSelect selection={variant} variants={product.variants} productName={product.name} handleChange={selectVariant} />
+          <form onSubmit={handleSubmit} style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}} >
 
-          <StyledNumberInput type="number" id="quantity" name="quantity"
-      min="1" max="10" value={quantity} onChange={(e) => setQuantity(parseInt(e.target.value,10))} />
-          <StyledSubmitButton type="submit">add to cart</StyledSubmitButton>
+            <VariantSelect 
+              selection={variant} 
+              variants={product.variants} 
+              productName={product.name} 
+              handleChange={selectVariant} 
+            />
+            <p>
+            <StyledNumberInput 
+              type="number" 
+              id="quantity" 
+              name="quantity"
+              min="1" max="10" 
+              value={quantity} 
+              onChange={(e) => setQuantity(parseInt(e.target.value,10))} 
+            />
+
+            <span> ${product.variants[0].retail_price}</span>
+            </p>
+            
+            <StyledButton type="submit">Add to Cart</StyledButton>
           </form>
         </StyledProductInfoDiv>
       </div>
