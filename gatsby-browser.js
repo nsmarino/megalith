@@ -3,7 +3,7 @@ import StripeProvider from './src/components/StripeProvider';
 import { CartProvider } from 'react-use-cart'; // for shopping cart
 import { GraphQLClient, ClientContext } from 'graphql-hooks';
 import { ToastContainer } from 'react-toastify'; // add-on for client notifications
-import GlobalStyles from './src/components/globalstyles'
+import GlobalStyles from './src/components/GlobalStyles.js'
 
 require('es6-promise').polyfill();
 require('isomorphic-fetch');
