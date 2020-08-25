@@ -10,12 +10,30 @@ import StyledButton from '../StyledButton'
 
 import styled from "@emotion/styled"
 
+const StyledProductCardDiv = styled.div`
+  margin: 2rem;
+  display: flex;
+  align-items: center;
+
+  .productImage {
+    width: 100%;
+  }
+
+  @media (max-width: 600px) {
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+  }
+`
 const StyledProductInfoDiv = styled.div`
   margin: 2rem;
   display: flex;
   font-size: 1.25rem;
   flex-direction: column;
   align-items: center;
+
+  @media (max-width: 600px) {
+    margin: 0.5rem;
+  }
 `
 const StyledNumberInput = styled.input`
   font-family: Computer Modern;
@@ -26,6 +44,7 @@ const StyledNumberInput = styled.input`
   border: 1px solid black;
 
 `
+
 
 const ProductCard = ({ product }) => {
   const { addItem } = useCart()
@@ -46,8 +65,12 @@ const ProductCard = ({ product }) => {
     }
 
   return (
-      <div style={{margin: '2rem', display: 'flex', alignItems: 'center'}}>
-        <Img fluid={product.gatsbyImage.node.childImageSharp.fluid} alt={product.name} style={{width: '300px',}}/>
+      <StyledProductCardDiv>
+        <Img 
+          fluid={product.gatsbyImage.node.childImageSharp.fluid} 
+          alt={product.name} 
+          className="productImage"
+        />
 
         <StyledProductInfoDiv>
           <form onSubmit={handleSubmit} style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}} >
@@ -74,7 +97,7 @@ const ProductCard = ({ product }) => {
             <StyledButton type="submit">Add to Cart</StyledButton>
           </form>
         </StyledProductInfoDiv>
-      </div>
+      </StyledProductCardDiv>
   )
 }
 

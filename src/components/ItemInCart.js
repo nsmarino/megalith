@@ -4,6 +4,23 @@ import styled from '@emotion/styled'
 
 import StyledButton from './StyledButton'
 
+const StyledItemInCartDiv = styled.div`
+  display: flex;
+  margin-bottom: 2rem;
+  justify-content: space-between;
+  align-items: center;
+
+  .itemText {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    p {
+      display: block;
+      margin: 0rem;
+    }
+  }
+`
 const StyledQuantityButton = styled.button`
 font-family: Computer Modern;
 background: transparent;
@@ -16,13 +33,15 @@ cursor: pointer;
 `
 
 const ItemInCart = ({item, removeItem, updateItemQuantity}) => {
-    console.log(item)
 
     return (
-      <div key={item.id} style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+      <StyledItemInCartDiv key={item.id} >
         <Img fluid={item.gatsbyImage.node.childImageSharp.fluid} alt={item.name} style={{width: '50px',}}/>
 
-        <p>{item.name}</p>
+        <div className="itemText">
+          <p>{item.name}</p>
+          <p>${item.itemTotal / 100}</p>
+        </div>
 
         <div>
           <StyledQuantityButton 
@@ -39,11 +58,10 @@ const ItemInCart = ({item, removeItem, updateItemQuantity}) => {
           <StyledQuantityButton onClick={() => updateItemQuantity(item.id, item.quantity + 1)}>&gt;</StyledQuantityButton>
         </div>
 
-        <p>${item.itemTotal / 100}</p>
 
         <StyledButton onClick={() => removeItem(item.id)}>Remove</StyledButton>
 
-      </div>
+      </StyledItemInCartDiv>
     )
 }
 

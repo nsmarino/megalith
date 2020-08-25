@@ -5,38 +5,46 @@
     src: url("../../static/fonts/cmunrm.ttf") format("truetype");
   }
   
-  @font-face {
-    font-family: Megalith-Regular;
-    font-weight: 400;
-    font-style: normal;
-    src: url("../../static/fonts/Megalith-Regular.ttf") format("truetype");
-  }
+@font-face {
+  font-family: Megalith-Regular;
+  font-weight: 400;
+  font-style: normal;
+  src: url("../../static/fonts/Megalith-Regular.ttf") format("truetype");
+}
   
-  html {
-    font-family: Computer Modern, sans-serif;
-    -ms-text-size-adjust: 100%;
-    -webkit-text-size-adjust: 100%;
-    box-sizing: border-box;
-    overflow-y: scroll;
-    font-size: 100%;
-  }
-  body {
-    margin: 0;
-    margin-top: 1rem;
-    display: flex;
-    background: #dbc7cb;
-    justify-content: center;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+html {
+  font-family: Computer Modern, sans-serif;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  box-sizing: border-box;
+  overflow-y: scroll;
+  font-size: 100%;
+}
 
-    --striped-hover: repeating-linear-gradient(
-      -45deg,
-      #dbc7cb,
-      #dbc7cb 5px,
-      white 5px,
-      white 6px
-    );
-  }
+body {
+  margin: 0;
+  margin-top: 1rem;
+  display: flex;
+  background: #dbc7cb;
+  justify-content: center;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  --striped-hover: repeating-linear-gradient(
+    -45deg,
+    #dbc7cb,
+    #dbc7cb 5px,
+    white 5px,
+    white 6px
+  );
+  --striped-disabled: repeating-linear-gradient(
+    -45deg,
+    #dbc7cb,
+    #dbc7cb 5px,
+    grey 5px,
+    grey 6px
+  );
+}
   
 * {
     box-sizing: inherit;
@@ -58,8 +66,8 @@
 
 /*  Toast: */
 
-.Toastify__toast--default {
-}
+/* .Toastify__toast--default {
+} */
 
 .Toastify__toast-body {
   color: black;

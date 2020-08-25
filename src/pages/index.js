@@ -53,8 +53,10 @@ const StyledSplashUL = styled.ul`
 `
 
 const HomeNav = () => {
+
+ 
     return (
-        <>
+        <div>
         <SEO title="Megalith" />
         <nav>
             <StyledSplashUL>
@@ -63,7 +65,7 @@ const HomeNav = () => {
                 <li><Link to="/history">HistorY</Link></li>
             </StyledSplashUL>
         </nav>
-        </>
+        </div>
     )
 }
 
@@ -81,11 +83,13 @@ const Splash = ({children}) => {
     )
 }
 
-const Home = () => (
+const Home = () => {
+
+    return (
     <Splash>
       <SplashH1 />
       <HomeNav />
     </Splash>
-)
+)}
 
 export default Home

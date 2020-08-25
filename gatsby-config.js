@@ -1,6 +1,6 @@
-// require('dotenv').config({
-//   path: `.env.${process.env.NODE_ENV}`,
-// })
+require('dotenv').config({
+  path: `.env.${process.env.NODE_ENV}`,
+})
 
 module.exports = {
   siteMetadata: {
@@ -23,7 +23,7 @@ module.exports = {
       options: {
         typeName: `customServer`,
         fieldName: `customServer`,
-        url: 'http://localhost:4000/graphql',
+        url: process.env.PROD_GRAPHQL_SERVER,
       },
     },
     `gatsby-transformer-sharp`,

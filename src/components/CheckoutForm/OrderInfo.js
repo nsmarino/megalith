@@ -23,7 +23,7 @@ const StyledInfo = styled.table`
     text-align: right;
   }
 `
-const TotalInfo = ({ subtotal, tax, shipping }) => {
+const OrderInfo = ({ subtotal, tax, shipping }) => {
     return (
       <StyledInfo>
         <thead>
@@ -51,4 +51,4 @@ const TotalInfo = ({ subtotal, tax, shipping }) => {
     )
   }
 
-export default TotalInfo
+export default OrderInfo

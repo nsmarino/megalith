@@ -3,11 +3,9 @@ import { Link,
    } from "gatsby"
 import PropTypes from "prop-types"
 import React from "react"
-// import Img from "gatsby-image"
 import { useCart } from 'react-use-cart'
 
 import styled from "@emotion/styled"
-// import { css } from "@emotion/core"
 
 const StyledHeader = styled.header`
   display: flex;

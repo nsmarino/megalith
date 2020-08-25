@@ -10,7 +10,7 @@ import { useForm, FormProvider } from 'react-hook-form'
 import BillingForm from './BillingForm';
 import PaymentForm from './PaymentForm';
 import ShippingForm from './ShippingForm';
-import TotalInfo from './TotalInfo';
+import OrderInfo from './OrderInfo';
 import CheckoutContext from '../../context/Checkout';
 
 const StyledForm = styled.form`
@@ -44,7 +44,14 @@ const StyledForm = styled.form`
     font-style: italic;
   }
 `
+const StyledCheckoutContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
 
+  @media (max-width: 600px) {
+    flex-direction: column;
+  }
+`
 // Mutations:
 const CALCULATE_MUTATION = `mutation estimateOrderCosts($input: EstimateOrderCostsInput!) {
   estimateOrderCosts(
@@ -104,6 +111,7 @@ const CheckoutForm = () => {
 
 // Functions:
     const handleCheckoutSuccess = (orderId) => {
+      console.log('in checkout success handler', orderId)
       emptyCart();
 
       navigate('../success', { state: { orderId } });
@@ -147,9 +155,9 @@ const CheckoutForm = () => {
             card: elements.getElement('card'),
           },
         });
-        console.log(stripeConfirmation)
         if (stripeConfirmation.error) throw new Error(stripeConfirmation.error.message);
         
+        console.log('before being passed to checkout success handler', id)
         handleCheckoutSuccess(id)
 
       } catch (err) {
@@ -179,7 +187,7 @@ const CheckoutForm = () => {
     }
 
   return (
-    <div style={{display: 'flex', justifyContent: 'space-between'}}>
+    <StyledCheckoutContainer>
 
     <FormProvider {...methods}>
       <StyledForm onSubmit={methods.handleSubmit(
@@ -191,32 +199,10 @@ const CheckoutForm = () => {
       </StyledForm> 
     </FormProvider> 
 
-    <TotalInfo subtotal={cartTotal} shipping={shippingRate} tax={tax} />
+    <OrderInfo subtotal={cartTotal} shipping={shippingRate} tax={tax} />
 
-    </div>  
+    </StyledCheckoutContainer>  
   )
 }
 
 export default CheckoutForm
-
-
-// 8/14:
-// Integrate checkout mutation. ✓
-// Integrate payment_intent mutation. ✓
-// Send client secret to stripe to complete payment. ✓
-// Webhook will confirm Printful order. ✓
-// Navigate to success or failure page. ✓
-
-// 8/15:
-// Simple css to make site presentable.
-
-// 8/16:
-// Error handling
-// Test suites
-
-// Aug 17-31:
-// Deploy simple static portfolio site, create PDF resume, polish 3 projects for job applications starting September 1.
-
-// September:
-// Apply to 3 jobs per day while working on sketchbook, working on design of personal site, improving 3 full-stack projects, and maybe doing leetcode problems?
-// GOAL: get a job interview by end of september.

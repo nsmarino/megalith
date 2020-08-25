@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Header renders correctly 1`] = `
+<header
+  className="css-9o4yql"
+>
+  <h1>
+    <a
+      href="/"
+    >
+      MegalitH
+    </a>
+  </h1>
+  <p>
+    <a
+      href="/cart"
+    >
+      Cart [
+      5
+      ]
+    </a>
+  </p>
+</header>
+`;
