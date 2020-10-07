@@ -27,22 +27,22 @@ const Home = () => {
   return (
     <>
       <SEO title="Megalith" />
-        <div style={
-          {
-            width:"90vw", 
-            height: '90vh', 
-            background: 'url(stoneCircle.png',
-            backgroundSize: 'contain',
-            backgroundRepeat: 'no-repeat',
-            backgroundPosition: 'center',
-          }
-        }>
-                    <SplashH1 />
-                    <nav style={{display: 'flex', flexDirection: 'column', justifyContent: 'space-around'}}>
+      <div style={
+        {
+          width:"90vw", 
+          height: '90vh', 
+          background: 'url(stoneCircle.png)',
+          backgroundSize: 'contain',
+          backgroundRepeat: 'no-repeat',
+          backgroundPosition: 'center',
+        }
+      }>
+        <SplashH1 />
+        <nav style={{display: 'flex', flexDirection: 'column', justifyContent: 'space-around'}}>
           <Btn text="ArtifactS" link="/store" />
           <Btn text="HistorY" link="/history" />
         </nav>     
-        </div>
+      </div>
     </>
 )}
 
