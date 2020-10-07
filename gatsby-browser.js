@@ -12,6 +12,24 @@ const client = new GraphQLClient({
     url: 'http://localhost:4000/graphql',
   });
 
+  // For when framer-motion page transitions are added:
+  // const transitionDelay = 500;
+  // export const shouldUpdateScroll = ({
+  //   routerProps: { location },
+  //   getSavedScrollPosition
+  // }) => {
+  //   if (location.action === "PUSH") {
+  //     window.setTimeout(() => window.scrollTo(0, 0), transitionDelay);
+  //   } else {
+  //     const savedPosition = getSavedScrollPosition(location);
+  //     window.setTimeout(
+  //       () => window.scrollTo(...(savedPosition || [0, 0])),
+  //       transitionDelay
+  //     );
+  //   }
+  //   return false;
+  // };
+
   export const wrapPageElement = ({ element, props }) => { // allows a plugin to wrap the page element
     return <GlobalStyles {...props}>{element}</GlobalStyles>; // ie puts LAYOUT component around entire page
     // useful for setting wrappers that dont unmount on page change

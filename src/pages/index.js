@@ -4,15 +4,7 @@ import { Link } from 'gatsby'
 import SEO from '../components/seo'
 import styled from "@emotion/styled"
 import Btn from '../components/GrahamBtn'
-import Image from '../components/image'
 
-const StyledSplash = styled.div`
-  margin-top: 1rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`
 const StyledSplashH1 = styled.h1`
   font-family: Megalith-Regular;
   font-weight: 400;
