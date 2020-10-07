@@ -19,6 +19,14 @@ module.exports = {
       },
     },
     {
+      resolve: "gatsby-plugin-react-svg",
+      options: {
+        rule: {
+          include: /assets/ 
+        }
+      }
+    },
+    {
       resolve: `gatsby-source-graphql`, // this is the syntax for a custom graphql endpoint datasource!
       options: {
         typeName: `customServer`,

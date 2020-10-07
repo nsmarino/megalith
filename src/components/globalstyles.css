@@ -30,12 +30,21 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
+  --base-color: #dbc7cb;
+
   --striped-hover: repeating-linear-gradient(
     -45deg,
-    #dbc7cb,
-    #dbc7cb 5px,
-    white 5px,
-    white 6px
+    transparent,
+    transparent 4px,
+    white 4px,
+    white 5px
+  );
+  --striped-hover-opposite: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 4px,
+    white 4px,
+    white 5px
   );
   --striped-disabled: repeating-linear-gradient(
     -45deg,
