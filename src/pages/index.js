@@ -29,16 +29,18 @@ const Home = () => {
       <SEO title="Megalith" />
       <div style={
         {
-          width:"90vw", 
+          width:"50rem", 
           height: '90vh', 
           background: 'url(stoneCircle.png)',
           backgroundSize: 'contain',
           backgroundRepeat: 'no-repeat',
           backgroundPosition: 'center',
+          display: 'flex',
+          justifyContent: 'space-between'
         }
       }>
         <SplashH1 />
-        <nav style={{display: 'flex', flexDirection: 'column', justifyContent: 'space-around'}}>
+        <nav style={{display: 'flex', flexDirection: 'column'}}>
           <Btn text="ArtifactS" link="/store" />
           <Btn text="HistorY" link="/history" />
         </nav>     

@@ -6,7 +6,7 @@ import styled from "@emotion/styled"
 const Container = styled.div`
   display: grid;
   width: 15rem;
-  height: 10rem;
+  height: 5rem;
   margin: 3rem;
 `
 
@@ -14,7 +14,7 @@ const StyledBox = styled.div`
   grid-column: 1;
   grid-row: 1;
   width: 15rem;
-  height: 10rem;
+  height: 5rem;
   background: ${props=>props.stripes};
   filter: ${props=>props.filter};
   transform: ${props => props.transform};
@@ -23,7 +23,7 @@ const StyledBox = styled.div`
 
   const StyledBtnContainer = styled.div`
   width: 15rem;
-  height: 10rem;
+  height: 5rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -39,9 +39,10 @@ const StyledBtn = styled.button`
   border: none;
   font-size: 700%;
 `
+
 const Btn = ({text, link}) => {
-    const [hover, setHover] = useState(false)
-    const [focus, setFocus] = useState(false)
+  const [hover, setHover] = useState(false)
+  const [focus, setFocus] = useState(false)
 
   const getTransform = defaultState => {
     if (hover && !focus) return `rotate(2deg) translateZ(-1em)`
@@ -50,20 +51,21 @@ const Btn = ({text, link}) => {
   }
 
   return (
-      <Container 
-        onMouseEnter={() => setHover(true)}
-        onMouseLeave={() => {
-          setFocus(false)
-          setHover(false)
-        }} 
-        onMouseDown={() => setFocus(true)}
-        onMouseUp={() => setFocus(false)}
-      >
+    <Container 
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => {
+        setFocus(false)
+        setHover(false)
+      }} 
+      onMouseDown={() => setFocus(true)}
+      onMouseUp={() => setFocus(false)}
+    >
+    
     <StyledBox 
        stripes='var(--striped-hover-opposite)' 
        transform={getTransform(`rotate(2deg) translateX(-1em) translateY(1em) translateZ(-1em)`)}
        filter={focus ? `invert(100%)` : `invert(0%)`}
-     />
+      />
 
      <StyledBox 
        stripes='var(--striped-hover)'
