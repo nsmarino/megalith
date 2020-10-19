@@ -32,7 +32,9 @@ const StyledBox = styled.div`
   transform: translateZ(1em);
 `
 
-const StyledBtn = styled.button`
+const StyledBtn = styled.div`
+  outline: none;
+  box-shadow: none;
   font-family: Megalith-Regular;
   color: ${props => props.color};
   background: none;
@@ -57,8 +59,8 @@ const Btn = ({text, link}) => {
         setFocus(false)
         setHover(false)
       }} 
-      onMouseDown={() => setFocus(true)}
-      onMouseUp={() => setFocus(false)}
+      onFocus={() => setFocus(true)}
+      onBlur={() => setFocus(false)}
     >
     
     <StyledBox 
@@ -74,7 +76,7 @@ const Btn = ({text, link}) => {
     />   
      
       <StyledBtnContainer>
-        <Link to={link}>
+        <Link to={link} style={{outline: 'none', textDecoration: 'none'}}>
   <StyledBtn color={focus ? `white` : `black`}>{text}</StyledBtn>
         </Link>
       </StyledBtnContainer>
