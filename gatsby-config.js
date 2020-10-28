@@ -31,7 +31,7 @@ module.exports = {
       options: {
         typeName: `customServer`,
         fieldName: `customServer`,
-        url: process.env.PROD_GRAPHQL_SERVER,
+        url: process.env.GRAPHQL_SERVER,
       },
     },
     `gatsby-transformer-sharp`,

@@ -1,5 +1,5 @@
 import React from 'react'
-import { graphql, StaticQuery } from 'gatsby'
+import { graphql, StaticQuery } from 'gatsby' // static query componet used in component
 
 import ProductCard from './ProductCard'
 

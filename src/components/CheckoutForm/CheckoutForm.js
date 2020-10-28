@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { navigate } from 'gatsby';
 import styled from '@emotion/styled'
 
@@ -11,7 +11,6 @@ import BillingForm from './BillingForm';
 import PaymentForm from './PaymentForm';
 import ShippingForm from './ShippingForm';
 import OrderInfo from './OrderInfo';
-import CheckoutContext from '../../context/Checkout';
 
 const StyledForm = styled.form`
   h3 {
@@ -52,6 +51,7 @@ const StyledCheckoutContainer = styled.div`
     flex-direction: column;
   }
 `
+
 // Mutations:
 const CALCULATE_MUTATION = `mutation estimateOrderCosts($input: EstimateOrderCostsInput!) {
   estimateOrderCosts(
@@ -71,6 +71,7 @@ const CHECKOUT_MUTATION = `mutation checkout($input: CheckoutInput!) {
     orderTotal
   }
 }`
+
 const PAYMENT_INTENT_MUTATION = `mutation createPaymentIntent($input: PaymentIntentInput!) {
   createPaymentIntent(
     input: $input
@@ -90,9 +91,6 @@ const CheckoutForm = () => {
     const [shippingRate, setShippingRate] = useState(0)
     const [paymentVis, setPaymentVis] = useState(false)
     const [tax, setTax] = useState(0)
-
-// Refactory: Checkout context
-  const checkoutContext = useContext(CheckoutContext)
 
 // Mutation hooks:
     const [estimateOrderCosts] = useMutation(CALCULATE_MUTATION);
@@ -124,7 +122,12 @@ const CheckoutForm = () => {
 
       try {
         // Checkout mutation:
-        const printfulSyncVariants = items.map(item => {return { sync_variant_id: item.id, quantity: item.quantity}})
+        const printfulSyncVariants = items.map(item => {
+          return { 
+            sync_variant_id: item.id, 
+            quantity: item.quantity
+          }
+        })
  
         const input = {
           recipient: shipping,
@@ -165,13 +168,21 @@ const CheckoutForm = () => {
       }
     }
     const calculateOrderCosts = async ({ shipping }) => {
-      const printfulSyncVariants = items.map(item => {return { sync_variant_id: item.id, quantity: item.quantity}})
+      const printfulSyncVariants = items.map(item => {
+        return { 
+          sync_variant_id: item.id, 
+          quantity: item.quantity
+        }
+      })
+      
       const input = {
         recipient: shipping,
         items: printfulSyncVariants,
       }
+      console.log(input)
       try {
         const { data } = await estimateOrderCosts({ variables: { input }})
+        console.log('estimated order costs,', data)
         const { estimateOrderCosts: {
           shippingRate, taxRate, vatRate
         }} = data

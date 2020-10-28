@@ -9,7 +9,7 @@ require('es6-promise').polyfill();
 require('isomorphic-fetch');
 
 const client = new GraphQLClient({
-    url: 'https://evening-cove-56542.herokuapp.com/graphql',
+  url: process.env.GRAPHQL_SERVER,
   });
 
   // For when framer-motion page transitions are added:
