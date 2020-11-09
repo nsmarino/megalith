@@ -99,7 +99,7 @@ const ProductTemplate = ({ pageContext, data }) => {
 
             <span> ${product.variants[0].retail_price}</span>
             </p>
-            <StyledButton type="submit">Add to Cart</StyledButton>
+            <StyledButton type="submit" cy="btn">Add to Cart</StyledButton>
           </form>
         </StyledProductInfoDiv>
       </StyledProductCardDiv>

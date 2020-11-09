@@ -18,12 +18,14 @@ const ShippingForm = ({ separateBilling, handleChange }) => {
         name="shipping.name" 
         placeholder="Name *" 
         register={register({ required: 'Name is required' })}
-        errors={errors} 
+        errors={errors}
+        cy="shipping-name" 
       />
 
       <Input 
         name="shipping.email" 
         placeholder="Email address *"
+        cy="shipping-email" 
         type="email"
         register={register({ required: 'Email is required' })}
         errors={errors} 
@@ -40,6 +42,7 @@ const ShippingForm = ({ separateBilling, handleChange }) => {
       <Input 
         name="shipping.address1" 
         placeholder="Address line 1 *"
+        cy="shipping-address" 
         register={register({ required: 'Address line is required' })}
         errors={errors} 
       />
@@ -54,12 +57,13 @@ const ShippingForm = ({ separateBilling, handleChange }) => {
       <Input 
         name="shipping.city" 
         placeholder="City *"
+        cy="shipping-city" 
         register={register({ required: 'City is required' })}
         errors={errors} 
       />
       <StyledSelectContainer>
       
-      <select name="shipping.state_code" ref={register}>
+      <select name="shipping.state_code" ref={register} data-cy="shipping-state" >
         <option value="AL">Alabama</option>
         <option value="AK">Alaska</option>
         <option value="AZ">Arizona</option>
@@ -122,6 +126,7 @@ const ShippingForm = ({ separateBilling, handleChange }) => {
       <Input 
         name="shipping.zip" 
         placeholder="ZIP Code *" 
+        cy="shipping-zip" 
         register={register({ required: 'ZIP Code is required' })}
         errors={errors} 
       />
@@ -135,7 +140,7 @@ const ShippingForm = ({ separateBilling, handleChange }) => {
         </label>
       </StyledCheckboxContainer>
 
-      <StyledButton type="submit">Calculate shipping</StyledButton>
+      <StyledButton type="submit" cy="btn">Calculate shipping</StyledButton>
     </div>
   )
 }
