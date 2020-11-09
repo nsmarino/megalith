@@ -31,7 +31,7 @@ module.exports = {
       options: {
         typeName: `customServer`,
         fieldName: `customServer`,
-        url: process.env.GRAPHQL_SERVER,
+        url: 'https://evening-cove-56542.herokuapp.com/graphql',
       },
     },
     `gatsby-transformer-sharp`,
