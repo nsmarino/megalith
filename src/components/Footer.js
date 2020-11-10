@@ -28,8 +28,7 @@ const Footer = () => {
   return (
     <StyledFooter>
       <ul>
-        <li><Link to="/store">store</Link></li>
-        <li><Link to="/artifacts">artifacts</Link></li>
+        <li><Link to="/store">artifacts</Link></li>
         <li><Link to="/history">history</Link></li>
       </ul>
     </StyledFooter>

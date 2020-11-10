@@ -1,7 +1,8 @@
 import React from 'react'
 import { graphql, StaticQuery } from 'gatsby' // static query componet used in component
 
-import ProductCard from './ProductCard'
+// import ProductCard from './ProductCard'
+import FlipCard from './FlipProductCard'
 
 export default () => (
     <StaticQuery 
@@ -46,7 +47,9 @@ export default () => (
       )
       
       return (
-        productsWithImages.map(product => <ProductCard product={product} key={product.id} />)
+        <div style={{ display: 'flex' }}>
+        {productsWithImages.map(product => <FlipCard product={product} key={product.id} />)}
+        </div>
       )
     }}
     />
