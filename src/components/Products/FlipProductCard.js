@@ -39,8 +39,9 @@ const CardBody = styled.div`
     top: 0;
     background-color: #dbc7cb;
     border-radius: 10px;
+    -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
-    h2, a {
+      h2, a {
       font-weight: normal;
       font-size: 3rem;
       text-decoration: none;
@@ -77,8 +78,8 @@ const CardBody = styled.div`
 
 const BeveledDiv = styled.div`
   background-color: #dbc7cb;
+  -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
-
   border-left: 1px solid black;
   border-right: 1px solid black;
   width: 8rem;
