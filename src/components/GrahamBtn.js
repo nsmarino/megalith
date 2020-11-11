@@ -8,13 +8,19 @@ const Container = styled.div`
   width: 15rem;
   height: 5rem;
   margin: 3rem;
+
+  @media (max-width: 600px) {
+    width: 8rem;
+    height: 2rem;
+    margin: 1rem;
+  }
 `
 
 const StyledBox = styled.div`
   grid-column: 1;
   grid-row: 1;
-  width: 15rem;
-  height: 5rem;
+  width: 100%;
+  height: 100%;
   background: ${props=>props.stripes};
   filter: ${props=>props.filter};
   transform: ${props => props.transform};
@@ -22,8 +28,8 @@ const StyledBox = styled.div`
   `
 
   const StyledBtnContainer = styled.div`
-  width: 15rem;
-  height: 5rem;
+  width: 100%;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -40,6 +46,10 @@ const StyledBtn = styled.div`
   background: none;
   border: none;
   font-size: 700%;
+
+  @media (max-width: 600px) {
+    font-size: 300%;
+  }
 `
 
 const Btn = ({text, link}) => {
@@ -77,7 +87,11 @@ const Btn = ({text, link}) => {
      
       <StyledBtnContainer>
         <Link to={link} style={{outline: 'none', textDecoration: 'none'}}>
-  <StyledBtn color={focus ? `white` : `black`}>{text}</StyledBtn>
+          <StyledBtn 
+            color={focus ? `white` : `black`}
+          >
+              {text}
+          </StyledBtn>
         </Link>
       </StyledBtnContainer>
 

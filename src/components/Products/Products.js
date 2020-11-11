@@ -47,7 +47,7 @@ export default () => (
       )
       
       return (
-        <div style={{ display: 'flex' }}>
+        <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap' }}>
         {productsWithImages.map(product => <FlipCard product={product} key={product.id} />)}
         </div>
       )
