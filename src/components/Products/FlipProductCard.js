@@ -29,6 +29,7 @@ const CardBody = styled.div`
   height: 100%;
 
   .cardSide {
+
     width: 100%;
     height: 15rem;
     position: absolute;
@@ -54,12 +55,14 @@ const CardBody = styled.div`
 
   .cardBack {
     z-index: 2;
+
     transform: rotateY(180deg);
     .productImage {
       min-width: 5rem;
     }
   }
   .cardFront {
+
     img {
       width: 100%;
     }
@@ -80,8 +83,7 @@ const BeveledDiv = styled.div`
   background-color: #dbc7cb;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
-  border-left: 1px solid black;
-  border-right: 1px solid black;
+  border: 1px solid black;
   width: 8rem;
   height: 12rem;
   display: flex;
@@ -101,30 +103,28 @@ const BeveledDiv = styled.div`
     calc(100% - ${props => Math.sin(props.cornerAngleRadian)}rem) 0%
     );
 `
-const Border = ({children}) => {
-  return (
-    <>
-    <div style={{filter: 'drop-shadow(0px 1px 0px rgb(0, 0, 0))'}}>
-         <div style={{filter: 'drop-shadow(0px -1px 0px rgb(0, 0, 0))'}}>
-            {children}
-        </div>
-     </div>
-    </>
-  )
-}
+// const Border = ({children}) => {
+//   return (
+//     <>
+//     <div style={{filter: 'drop-shadow(0px 1px 0px rgb(0, 0, 0))'}}>
+//          <div style={{filter: 'drop-shadow(0px -1px 0px rgb(0, 0, 0))'}}>
+//             {children}
+//         </div>
+//      </div>
+//     </>
+//   )
+// }
 
 const CardFront = () => {
   const cornerAngle = 45
 
   return (
-  <Border>
     <BeveledDiv 
       className="cardFront cardSide"
       cornerAngleRadian={((cornerAngle * Math.PI) / 180)}
     >
       <img src="stoneCircle.png" alt="stone circle"/>
     </BeveledDiv>
-  </Border>
   )
 }
 
