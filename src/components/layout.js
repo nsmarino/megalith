@@ -14,7 +14,7 @@ const StyledLayoutDiv = styled.div`
   }
 
   @media (max-width: 600px) {
-    width: 95vw;
+    width: 90vw;
   }
 `
 

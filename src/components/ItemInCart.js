@@ -20,6 +20,10 @@ const StyledItemInCartDiv = styled.div`
       margin: 0rem;
     }
   }
+
+  @media (max-width: 600px) {
+
+  }
 `
 const StyledQuantityButton = styled.button`
 font-family: Computer Modern;
@@ -38,11 +42,11 @@ const ItemInCart = ({item, removeItem, updateItemQuantity}) => {
       <StyledItemInCartDiv key={item.id} >
         <Img fluid={item.gatsbyImage.node.childImageSharp.fluid} alt={item.name} style={{width: '50px',}}/>
 
+<div className="itemInfo">
         <div className="itemText">
           <p>{item.name}</p>
           <p>${item.itemTotal / 100}</p>
         </div>
-
         <div>
           <StyledQuantityButton 
             onClick={() => 
@@ -57,7 +61,7 @@ const ItemInCart = ({item, removeItem, updateItemQuantity}) => {
           {item.quantity}
           <StyledQuantityButton onClick={() => updateItemQuantity(item.id, item.quantity + 1)}>&gt;</StyledQuantityButton>
         </div>
-
+</div>
 
         <StyledButton onClick={() => removeItem(item.id)}>Remove</StyledButton>
 

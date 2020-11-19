@@ -103,17 +103,6 @@ const BeveledDiv = styled.div`
     calc(100% - ${props => Math.sin(props.cornerAngleRadian)}rem) 0%
     );
 `
-// const Border = ({children}) => {
-//   return (
-//     <>
-//     <div style={{filter: 'drop-shadow(0px 1px 0px rgb(0, 0, 0))'}}>
-//          <div style={{filter: 'drop-shadow(0px -1px 0px rgb(0, 0, 0))'}}>
-//             {children}
-//         </div>
-//      </div>
-//     </>
-//   )
-// }
 
 const CardFront = () => {
   const cornerAngle = 45
@@ -176,7 +165,7 @@ const FlipCard = ({ product }) => {
         setFlipped(true)
       }} 
       transform={flipped ? 'rotateY(180deg) rotate(2deg)' : 'rotate(2deg)'}
-      animation={flipped ? 'float 1.5s' : ''}
+      animation={flipped ? 'float 1s' : ''}
       zIndex={flipped ? '100' : '1'}
     >
       <CardBody className="cardBody">
@@ -194,4 +183,16 @@ export default FlipCard
 //     opacity: 0;
 //     visibility: hidden;
 //     transition: opacity 1s ease-in, visibility .75s linear;    }
+// }
+
+// const Border = ({children}) => {
+//   return (
+//     <>
+//     <div style={{filter: 'drop-shadow(0px 1px 0px rgb(0, 0, 0))'}}>
+//          <div style={{filter: 'drop-shadow(0px -1px 0px rgb(0, 0, 0))'}}>
+//             {children}
+//         </div>
+//      </div>
+//     </>
+//   )
 // }

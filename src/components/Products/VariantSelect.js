@@ -6,6 +6,7 @@ const StyledSelect = styled.select`
   font-size: 1.25rem;
   background: #dbc7cb;
   border: 1px solid black;
+  width: 20rem;
 `
 
 const VariantSelect = ({ selection, variants, productName, handleChange }) => {

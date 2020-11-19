@@ -1,5 +1,6 @@
 import React, {useState } from 'react'
 import { Link } from "gatsby"
+import useMediaQuery from '../hooks/useMediaQuery'
 
 import styled from "@emotion/styled"
 
@@ -56,6 +57,18 @@ const Btn = ({text, link}) => {
   const [hover, setHover] = useState(false)
   const [focus, setFocus] = useState(false)
 
+  const bottomTransform = useMediaQuery(
+    ['(max-width: 600px)'],
+    ['rotate(2deg) translateX(-0.5em) translateY(0.5em) translateZ(-0.5em)'],
+    'rotate(2deg) translateX(-1em) translateY(1em) translateZ(-1em)'
+    )
+  
+  const topTransform = useMediaQuery(
+    ['(max-width: 600px)'],
+    ['rotate(2deg) translateX(0.5em) translateY(-0.5em) translateZ(0.5em)'],
+    'rotate(2deg) translateX(1em) translateY(-1em) translateZ(-1em)'
+    )
+
   const getTransform = defaultState => {
     if (hover && !focus) return `rotate(2deg) translateZ(-1em)`
     else if (hover && focus) return `rotate(2deg) translateX(1em) translateY(1em) translateZ(-1em)`
@@ -75,13 +88,13 @@ const Btn = ({text, link}) => {
     
     <StyledBox 
        stripes='var(--striped-hover-opposite)' 
-       transform={getTransform(`rotate(2deg) translateX(-1em) translateY(1em) translateZ(-1em)`)}
+       transform={getTransform(bottomTransform)}
        filter={focus ? `invert(100%)` : `invert(0%)`}
       />
 
      <StyledBox 
        stripes='var(--striped-hover)'
-       transform={getTransform(`rotate(2deg) translateX(1em) translateY(-1em) translateZ(-1em)`)} 
+       transform={getTransform(topTransform)} 
        filter={focus ? `invert(100%)` : `invert(0%)`}
     />   
      

@@ -20,6 +20,7 @@ function useMediaQuery(queries, values, defaultValue) {
       // Set a listener for each media query with above handler as callback.
       mediaQueryLists.forEach(mql => mql.addListener(handler));
       return () => mediaQueryLists.forEach(mql => mql.removeListener(handler));
+       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [] );
 
     return value;
