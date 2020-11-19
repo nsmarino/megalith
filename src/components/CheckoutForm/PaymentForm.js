@@ -22,7 +22,7 @@ const PaymentForm = ({ checkoutProcessing, allowPayment }) => {
   return (
     <div>
       <h3>Payment</h3>
-      <p>Testing: Use card # 4242 4242 4242 4242 with any valid expiry and CVC code.</p>
+      {/* <p>Testing: Use card # 4242 4242 4242 4242 with any valid expiry and CVC code.</p> */}
       <div id="cardContainer" style={{marginBottom: '1rem'}}>
       <CardElement
         options={{ hidePostalCode: true }}
