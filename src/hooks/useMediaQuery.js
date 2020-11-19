@@ -1,4 +1,5 @@
 import {useState, useEffect } from 'react'
+import {window} from 'browser-monads'
 
 function useMediaQuery(queries, values, defaultValue) {
 
