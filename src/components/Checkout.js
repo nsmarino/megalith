@@ -10,7 +10,7 @@ function Checkout() {
   useEffect(() => {
     if (isEmpty) {
       const navigateTimer = setTimeout(() => {
-        navigate(`/store`);
+        navigate(`/`);
       }, 3000);
 
       return () => clearTimeout(navigateTimer);

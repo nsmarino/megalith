@@ -34,7 +34,7 @@ const SplashHeader = () => {
       </h1>
       <nav style={{display: 'flex'}}>
           <Btn text="HistorY" link="/history" />
-          <Btn text="IndeX" link="/zone" />
+          <Btn text="IndeX" link="/" />
 
         </nav>     
     </StyledHeader>
