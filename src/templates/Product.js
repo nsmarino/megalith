@@ -48,7 +48,9 @@ const StyledProductInfoDiv = styled.div`
 const ProductTemplate = ({ pageContext, data }) => {
   const product = pageContext
 
-  product.gatsbyImage = data.allFile.edges[0]
+  console.log(product)
+
+  product.gatsbyImage = data.allFile.edges[data.allFile.edges.length-1]
   const { register, handleSubmit, watch, getValues, setValue } = useForm({
     defaultValues: {
       quantity: 1,
@@ -107,7 +109,11 @@ export default ProductTemplate
 // Note use of id variable
 export const query = graphql`
   query imageQuery($id: String) {
-    allFile(filter: {extension: {regex: "/(png)/"}, relativeDirectory: {eq: "productImages"}, name: {eq: $id}}) {
+    allFile(filter: {
+      extension: {regex: "/(png)/"}
+      relativeDirectory: {regex: "/productImages/"}
+      name: {eq: $id}
+    }) {
       edges {
         node {
           base

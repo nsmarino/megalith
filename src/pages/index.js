@@ -11,6 +11,10 @@ const SplashLayout = styled.div`
   width: 600px;
 }
 
+@media (min-width: 900px) {
+  width: 900px;
+}
+
 @media (max-width: 600px) {
   width: 95vw;
 }

@@ -7,8 +7,8 @@ import styled from "@emotion/styled"
 const CardContainer = styled.div`
   position: relative;
   z-index: ${props => props.zIndex};
-  height: 15rem;
-  width: 10rem;
+  height: 20rem;
+  width: 15rem;
   margin: 1rem;
   .cardBody {
     transform: ${props => props.transform};
@@ -29,9 +29,8 @@ const CardBody = styled.div`
   height: 100%;
 
   .cardSide {
-
     width: 100%;
-    height: 15rem;
+    height: 100%;
     position: absolute;
     display: flex;
     flex-direction: column;
@@ -55,20 +54,20 @@ const CardBody = styled.div`
 
   .cardBack {
     z-index: 2;
-
+    border: 2px solid #444;
     transform: rotateY(180deg);
     .productImage {
       min-width: 5rem;
     }
   }
-  .cardFront {
 
-    img {
-      width: 100%;
+  .cardFront {
+    .cardFace {
+      min-width: 100%;
     }
     &:hover {
       cursor: pointer;
-    }
+    } 
   }
 
 
@@ -79,59 +78,32 @@ const CardBody = styled.div`
   }
 `
 
-const BeveledDiv = styled.div`
-  background-color: #dbc7cb;
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-  border: 1px solid black;
-  width: 8rem;
-  height: 12rem;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  clip-path: polygon(
-    ${props => Math.sin(props.cornerAngleRadian)}rem 0%, 
-    0% ${props => Math.cos(props.cornerAngleRadian)}rem,
-
-    0% calc(100% - ${props => Math.cos(props.cornerAngleRadian)}rem),
-    ${props => Math.sin(props.cornerAngleRadian)}rem 100%,
-
-    calc(100% - ${props => Math.sin(props.cornerAngleRadian)}rem) 100%,
-    100% calc(100% - ${props => Math.cos(props.cornerAngleRadian)}rem), 
-
-    100% ${props => Math.cos(props.cornerAngleRadian)}rem,
-    calc(100% - ${props => Math.sin(props.cornerAngleRadian)}rem) 0%
-    );
-`
-
-const CardFront = () => {
-  const cornerAngle = 45
+const CardFront = ({product}) => {
 
   return (
-    <BeveledDiv 
+    <div 
       className="cardFront cardSide"
-      cornerAngleRadian={((cornerAngle * Math.PI) / 180)}
     >
-      <img src="stoneCircle.png" alt="stone circle"/>
-    </BeveledDiv>
+    <Img 
+      fluid={product.cardFace.node.childImageSharp.fluid} 
+      alt='cardFace' 
+      className="cardFace"
+    />
+      {/* <img src="stoneCircle.png" alt="stone circle"/> */}
+    </div>
   )
 }
 
 const CardBack= ({ product }) => {
-  const cornerAngle = 45
 
   return (
-    <BeveledDiv 
-      className="cardBack cardSide"
-      cornerAngleRadian={((cornerAngle * Math.PI) / 180)}
+  <div className="cardBack cardSide">
+    <Link 
+      to={`/products/${product.id}`} 
+      style={
+        {width: '100%', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-around', alignItems: 'center' }
+      }
     >
-      <Link 
-        to={`/products/${product.id}`} 
-        style={
-          {width: '100%', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-around', alignItems: 'center' }
-        }
-      >
-
       <h2>Explore</h2>
       <Img 
           fluid={product.gatsbyImage.node.childImageSharp.fluid} 
@@ -140,13 +112,14 @@ const CardBack= ({ product }) => {
         />
       <h2>Explore</h2>
       </Link>
-    </BeveledDiv>
+    </div>
+
   )
 }
 
 const FlipCard = ({ product }) => {
   const [flipped, setFlipped] = useState(false)
-
+  console.log(product)
   useEffect(() => {
     let timer 
     if (flipped) {
@@ -170,7 +143,7 @@ const FlipCard = ({ product }) => {
     >
       <CardBody className="cardBody">
         <CardBack className="cardBack" product={product} />
-        <CardFront />
+        <CardFront className="cardFront" product={product} />
       </CardBody>
     </CardContainer>
   )
@@ -178,12 +151,20 @@ const FlipCard = ({ product }) => {
 
 export default FlipCard
 
-// &:hover {
-//   .cardBody .cardFront {
-//     opacity: 0;
-//     visibility: hidden;
-//     transition: opacity 1s ease-in, visibility .75s linear;    }
-// }
+// Beveled clip-path:
+// clip-path: polygon(
+//   ${props => Math.sin(props.cornerAngleRadian)}rem 0%, 
+//   0% ${props => Math.cos(props.cornerAngleRadian)}rem,
+
+//   0% calc(100% - ${props => Math.cos(props.cornerAngleRadian)}rem),
+//   ${props => Math.sin(props.cornerAngleRadian)}rem 100%,
+
+//   calc(100% - ${props => Math.sin(props.cornerAngleRadian)}rem) 100%,
+//   100% calc(100% - ${props => Math.cos(props.cornerAngleRadian)}rem), 
+
+//   100% ${props => Math.cos(props.cornerAngleRadian)}rem,
+//   calc(100% - ${props => Math.sin(props.cornerAngleRadian)}rem) 0%
+//   );
 
 // const Border = ({children}) => {
 //   return (

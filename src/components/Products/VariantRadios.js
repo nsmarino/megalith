@@ -5,9 +5,7 @@ const StyledLabel = styled.label`
   border: 1px solid black;
   background: ${props => props.color};
   display: flex;
-
-  width: 3rem;
-  height: 3rem;
+  padding: 1rem;
   justify-content: center;
   align-items: center;
   margin: 0.25rem;
@@ -34,7 +32,7 @@ const VariantRadios = ({ variants, register, currentValue }) => {
           name="variant" 
           id={variant.id}
           value={variant.id}
-        />{variant.name.split(' - ')[1]}
+        />{variant.sku.split('_')[1]}
       </StyledLabel>
   )
 

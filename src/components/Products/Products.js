@@ -31,17 +31,31 @@ export default () => (
                     ...GatsbyImageSharpFluid
                   }
                 }
+              }
             }
           }
-        }
+        cards:
+          allFile(filter: {extension: {regex: "/(png)/"}, relativeDirectory: {eq: "cards"}}) {
+            edges {
+              node {
+                base
+                childImageSharp {
+                  fluid(maxWidth: 800, quality: 100) {
+                    ...GatsbyImageSharpFluid
+                  }
+                }
+              }
+            }
+          }
       }
     `}
-    render={({ products, images }) => {
+    render={({ products, images, cards }) => {
       const productsWithImages = products.allProducts.map(
         product => (
           {
             ...product, 
-            gatsbyImage: images.edges.find(edge => edge.node.base.split('.')[0] === product.id)
+            gatsbyImage: images.edges.find(edge => edge.node.base.split('.')[0] === product.id),
+            cardFace: cards.edges.find(edge => edge.node.base.split('.')[0] === product.id)
           }
         )
       )
