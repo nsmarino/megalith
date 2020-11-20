@@ -64,10 +64,14 @@ const CardBody = styled.div`
   .cardFront {
     .cardFace {
       min-width: 100%;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      z-index: 1;
+ 
     }
     &:hover {
       cursor: pointer;
-    } 
+    }    
   }
 
 
@@ -79,7 +83,6 @@ const CardBody = styled.div`
 `
 
 const CardFront = ({product}) => {
-
   return (
     <div 
       className="cardFront cardSide"
@@ -89,20 +92,23 @@ const CardFront = ({product}) => {
       alt='cardFace' 
       className="cardFace"
     />
-      {/* <img src="stoneCircle.png" alt="stone circle"/> */}
     </div>
   )
 }
 
 const CardBack= ({ product }) => {
-
   return (
   <div className="cardBack cardSide">
     <Link 
       to={`/products/${product.id}`} 
-      style={
-        {width: '100%', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-around', alignItems: 'center' }
-      }
+      style={{
+        width: '100%', 
+        height: '100%', 
+        display: 'flex', 
+        flexDirection: 'column', 
+        justifyContent: 'space-around', 
+        alignItems: 'center' 
+      }}
     >
       <h2>Explore</h2>
       <Img 
@@ -119,7 +125,7 @@ const CardBack= ({ product }) => {
 
 const FlipCard = ({ product }) => {
   const [flipped, setFlipped] = useState(false)
-  console.log(product)
+
   useEffect(() => {
     let timer 
     if (flipped) {
