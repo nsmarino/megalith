@@ -1,5 +1,4 @@
 import React from 'react'
-import { graphql } from "gatsby"
 import { useForm } from 'react-hook-form'
 import { useCart } from 'react-use-cart'
 import Img from 'gatsby-image'
@@ -45,12 +44,9 @@ const StyledProductInfoDiv = styled.div`
   }
 `
 
-const ProductTemplate = ({ pageContext, data }) => {
+const ProductTemplate = ({ pageContext }) => {
   const product = pageContext
 
-  console.log(product)
-
-  product.gatsbyImage = data.allFile.edges[data.allFile.edges.length-1]
   const { register, handleSubmit, watch, getValues, setValue } = useForm({
     defaultValues: {
       quantity: 1,
@@ -105,25 +101,26 @@ const ProductTemplate = ({ pageContext, data }) => {
 
 export default ProductTemplate
 
+// NOT USING RIGHT NOW: Sourcing image from gatsby-node
 // Gatsby GraphQL query for fluid product image
 // Note use of id variable
-export const query = graphql`
-  query imageQuery($id: String) {
-    allFile(filter: {
-      extension: {regex: "/(png)/"}
-      relativeDirectory: {regex: "/productImages/"}
-      name: {eq: $id}
-    }) {
-      edges {
-        node {
-          base
-            childImageSharp {
-              fluid(maxWidth: 800, quality: 100) {
-                ...GatsbyImageSharpFluid
-              }
-            }
-          }
-        }
-      } 
-    }
-  `
+// export const query = graphql`
+//   query imageQuery($id: String) {
+//     allFile(filter: {
+//       extension: {regex: "/(png)/"}
+//       relativeDirectory: {regex: "/productImages/"}
+//       name: {eq: $id}
+//     }) {
+//       edges {
+//         node {
+//           base
+//             childImageSharp {
+//               fluid(maxWidth: 800, quality: 100) {
+//                 ...GatsbyImageSharpFluid
+//               }
+//             }
+//           }
+//         }
+//       } 
+//     }
+//   `
